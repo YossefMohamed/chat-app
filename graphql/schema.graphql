@@ -1,0 +1,43 @@
+  type User {
+    id:String!
+    username: String!
+    email: String
+    createdAt: String!
+    token: String
+    imageUrl: String
+    friends : [User]
+  }
+  type Message {
+    id: ID!
+    content: String!
+    from: String!
+    to: String!
+    createdAt: String!
+  }
+
+  type Query {
+    getUsers: [User]!
+    login(username: String!, password: String!): User!
+    getMessages(from: String!): [Message]!
+  }
+  type Mutation {
+    register(
+      username: String!
+      email: String!
+      password: String!
+      confirmPassword: String!
+    ): AuthPayload!
+    sendMessage(to: String!, content: String!): Message!
+    addfriend(user:String!):User!
+    removeFreind(user:String!):User!
+    cancleFriend(user:String!):User!
+    acceptFriend(user:String!):User!
+  }
+  type AuthPayload {
+    token: String!
+    user: User!
+} 
+  type Subscription {
+    newMessage: Message!
+  }
+
