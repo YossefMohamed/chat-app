@@ -1,19 +1,20 @@
-import jwt from 'jsonwebtoken'
+const jwt = require('jsonwebtoken')
 
-const getUserId = (request, requireAuth = true) => {
-    const header = request.request ? request.request.headers.authorization : request.connection.context.Authorization
+const getUserId = (req) => {
+  const token = req.headers.authorization.startsWith("Bearer") ? req.headers.authorization.split(" ")[1]:""
 
-    if (header) {
-        const token = header.replace('Bearer ', '')
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        return decoded.userId
-    }
+    let id;
+  if (token) {
 
-    if (requireAuth) {
-        throw new Error('Authentication required')
-    } 
-    
-    return null
-}
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err)
+        throw new Error("Please Login!") 
 
-export { getUserId as default }
+      id= decoded.userId;
+    });
+  }
+  return id
+
+};
+
+module.exports = getUserId

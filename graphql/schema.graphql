@@ -16,17 +16,20 @@
   }
 
   type Query {
-    getUsers: [User]!
-    login(username: String!, password: String!): User!
+    getUsers: [User!]!
+    login(email: String!, password: String!): AuthPayload!
     getMessages(from: String!): [Message]!
+    getUser(user:String!): User!
   }
   type Mutation {
+    deleteUser: User!
     register(
       username: String!
       email: String!
       password: String!
       confirmPassword: String!
     ): AuthPayload!
+    updateUser(username:String , email:String , password:String): AuthPayload!
     sendMessage(to: String!, content: String!): Message!
     addfriend(user:String!):User!
     removeFreind(user:String!):User!
@@ -37,6 +40,7 @@
     token: String!
     user: User!
 } 
+  
   type Subscription {
     newMessage: Message!
   }

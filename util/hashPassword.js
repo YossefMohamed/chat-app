@@ -8,5 +8,5 @@ exports.hashPassword = (password) => {
     return bcrypt.hash(password, 10)
 }
 exports.matchPassword = (password,hashedpassword)=>{
-return bcrypt.compare(password,hashedpassword,10)
+return bcrypt.compare(password,hashedpassword)
 }
