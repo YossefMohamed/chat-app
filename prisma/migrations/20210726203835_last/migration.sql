@@ -6,7 +6,7 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL,
     "imageUrl" TEXT NOT NULL DEFAULT E'https://www.google.com/url?sa=i&url=https%3A%2F%2Fnovocom.top%2Fview%2Ffd4688-default-whatsapp-no-profile-crack-picture-icon%2F&psig=AOvVaw1OP34y_UkU_Hpo0BY_nb3t&ust=1627240227186000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCMCD6bi0_PECFQAAAAAdAAAAABAJ',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     PRIMARY KEY ("id")
 );
@@ -17,6 +17,8 @@ CREATE TABLE "Message" (
     "content" TEXT NOT NULL,
     "senderId" TEXT NOT NULL,
     "receiverId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     PRIMARY KEY ("id")
 );

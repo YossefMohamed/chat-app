@@ -1,47 +1,48 @@
-  type User {
-    id:String!
+type User {
+  id: String!
+  username: String!
+  email: String
+  createdAt: String!
+  token: String
+  imageUrl: String
+  friends: [User]
+}
+type Message {
+  id: ID!
+  content: String!
+  senderId: String!
+  receiverId: String!
+  createdAt: String!
+}
+
+type Query {
+  getUsers: [User!]!
+  login(email: String!, password: String!): AuthPayload!
+  getMessages(with: String!): [Message]!
+  getUser(user: String!): User!
+}
+type Mutation {
+  deleteUser: User!
+  register(
     username: String!
-    email: String
-    createdAt: String!
-    token: String
-    imageUrl: String
-    friends : [User]
-  }
-  type Message {
-    id: ID!
-    content: String!
-    from: String!
-    to: String!
-    createdAt: String!
-  }
+    email: String!
+    password: String!
+    confirmPassword: String!
+  ): AuthPayload!
+  updateUser(username: String, email: String, password: String): AuthPayload!
+  addfriend(user: String!): User!
+  removeFreind(user: String!): User!
+  cancleFriend(user: String!): User!
+  acceptFriend(user: String!): User!
+  sendMessage(to: String!, content: String!): Message!
+  deleteMessage(messageId: Int!): Message!
+  updateMessage(content: String!, messageId: Int!): Message!
+}
+type AuthPayload {
+  token: String!
+  user: User!
+}
 
-  type Query {
-    getUsers: [User!]!
-    login(email: String!, password: String!): AuthPayload!
-    getMessages(from: String!): [Message]!
-    getUser(user:String!): User!
-  }
-  type Mutation {
-    deleteUser: User!
-    register(
-      username: String!
-      email: String!
-      password: String!
-      confirmPassword: String!
-    ): AuthPayload!
-    updateUser(username:String , email:String , password:String): AuthPayload!
-    sendMessage(to: String!, content: String!): Message!
-    addfriend(user:String!):User!
-    removeFreind(user:String!):User!
-    cancleFriend(user:String!):User!
-    acceptFriend(user:String!):User!
-  }
-  type AuthPayload {
-    token: String!
-    user: User!
-} 
-  
-  type Subscription {
-    newMessage: Message!
-  }
-
+type Subscription {
+  newMessage: Message!
+}

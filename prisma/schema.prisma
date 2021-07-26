@@ -18,8 +18,8 @@ username String
 email String  @unique
 password String 
 imageUrl String @default("https://www.google.com/url?sa=i&url=https%3A%2F%2Fnovocom.top%2Fview%2Ffd4688-default-whatsapp-no-profile-crack-picture-icon%2F&psig=AOvVaw1OP34y_UkU_Hpo0BY_nb3t&ust=1627240227186000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCMCD6bi0_PECFQAAAAAdAAAAABAJ")
-createdAt DateTime  @default(now())
-updatedAt DateTime  @default(now())
+createdAt  DateTime    @default(now())
+updatedAt DateTime  @updatedAt
 friends         User[] @relation("friends")
 friendsRelation User[] @relation("friends")
 messages Message[]
@@ -34,4 +34,6 @@ model Message {
   receiverId String
   receiver User  @relation("RecieverOfChat", fields: [receiverId], references: [id])
   sender User  @relation(fields: [senderId], references: [id])
+  createdAt  DateTime    @default(now())
+updatedAt DateTime  @updatedAt
 }
