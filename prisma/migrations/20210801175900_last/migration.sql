@@ -23,29 +23,11 @@ CREATE TABLE "Message" (
     PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "_friends" (
-    "A" TEXT NOT NULL,
-    "B" TEXT NOT NULL
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
-
--- CreateIndex
-CREATE UNIQUE INDEX "_friends_AB_unique" ON "_friends"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_friends_B_index" ON "_friends"("B");
 
 -- AddForeignKey
 ALTER TABLE "Message" ADD FOREIGN KEY ("receiverId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Message" ADD FOREIGN KEY ("senderId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_friends" ADD FOREIGN KEY ("A") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_friends" ADD FOREIGN KEY ("B") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

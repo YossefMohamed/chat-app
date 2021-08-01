@@ -26,7 +26,7 @@ module.exports = {
     updateUser: async (parent, args, context, info) => {
       const userId = getUserId(context.request);
       if (!userId) throw new Error("Please Login!");
-      console.log(args);
+      // console.log(args);
       if (args.password) args.password = await hashPassword(args.password);
       const updateUser = await context.prisma.user.update({
         where: {
@@ -52,6 +52,7 @@ module.exports = {
       return { deletedUser: "As" };
     },
     sendMessage: async (parent, args, context, info) => {
+      // console.log(info);
       const userId = getUserId(context.request);
       if (!userId) throw new Error("Please Login!");
       const message = await context.prisma.message.create({
@@ -66,7 +67,9 @@ module.exports = {
         // }
       });
       //sendid
-      console.log(message);
+      // console.log(message);
+      await context.pubsub.publish("NEW_MESSAGE", { newMessage: message });
+
       return message;
     },
     updateMessage: async (parent, args, context, info) => {

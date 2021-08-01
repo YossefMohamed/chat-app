@@ -1,20 +1,20 @@
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
 const getUserId = (req) => {
-  const token = req.headers.authorization.startsWith("Bearer") ? req.headers.authorization.split(" ")[1]:""
+  if (!req.headers.authorization) throw new Error("Please Login!");
+  const token = req.headers.authorization.startsWith("Bearer")
+    ? req.headers.authorization.split(" ")[1]
+    : "";
 
-    let id;
+  let id;
   if (token) {
-
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err)
-        throw new Error("Please Login!") 
+      if (err) throw new Error("Please Login!");
 
-      id= decoded.userId;
+      id = decoded.userId;
     });
   }
-  return id
-
+  return id;
 };
 
-module.exports = getUserId
+module.exports = getUserId;
